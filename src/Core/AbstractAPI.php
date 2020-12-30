@@ -165,7 +165,7 @@ abstract class AbstractAPI
      */
     protected function checkAndThrow(array $contents)
     {
-        if (isset($contents['status']) && 'success' !== $contents['status']) {
+        if (isset($contents['status']) && 'SUCCESS' !== $contents['status']) {
             if (empty($contents['message'])) {
                 $contents['message'] = 'Unknown';
             }
