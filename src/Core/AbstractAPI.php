@@ -147,8 +147,11 @@ abstract class AbstractAPI
         ) {
             // Limit the number of retries to 2
             if ($retries <= self::$maxRetries && $response && $body = $response->getBody()) {
-                // Retry on server errors
-                return false;
+                if (false !== stripos($body, 'ERROR')) {
+                    Log::debug("Retry again, error content: {$body}");
+
+                    return true;
+                }
             }
 
             return false;

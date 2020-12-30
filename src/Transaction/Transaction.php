@@ -23,6 +23,6 @@ class Transaction extends AbstractAPI
      */
     public function payment($data)
     {
-        return $this->http->post('payment', $this->withBaseData($data)->withSign());
+        return $this->getHttp()->post('payment', $this->withBaseData($data)->withSign());
     }
 }
