@@ -7,7 +7,7 @@ class SignatureTest extends \PHPUnit\Framework\TestCase
      */
     public function can_get_a_valid_signature()
     {
-        $app = new \Nilsir\Pacypay\Application([]);
+        $app = new \Nilsir\Pacypay\Application(['key' => '000000']);
 
         $data = [
             "merchantNo"=> "2510",
@@ -21,7 +21,7 @@ class SignatureTest extends \PHPUnit\Framework\TestCase
             "transactionType"=> "Sale",
         ];
 
-        $sign = $app->signature->getSign($data, '000000');
+        $sign = $app->signature->getSign($data);
 
         $this->assertSame('4f234a79607ed94159d6a7736ca43d26c209ba899268206cdf71316e378496f5', $sign);
     }

@@ -10,16 +10,16 @@
 
 namespace Nilsir\Pacypay\Foundation\ServiceProviders;
 
-use Nilsir\Pacypay\Signature\Signature;
+use Nilsir\Pacypay\Transaction\Transaction;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class SignatureProvider implements ServiceProviderInterface
+class TransactionProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple['signature'] = function ($pimple) {
-            return new Signature($pimple);
+        $pimple['transaction'] = function ($pimple) {
+            return new Transaction($pimple);
         };
     }
 }

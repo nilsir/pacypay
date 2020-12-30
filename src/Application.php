@@ -26,11 +26,13 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Application.
  *
  * @property \Nilsir\Pacypay\Signature\Signature $signtrue
+ * @property \Nilsir\Pacypay\Transaction\Transaction $transaction
  */
 class Application extends Container
 {
     protected $providers = [
         Foundation\ServiceProviders\SignatureProvider::class,
+        Foundation\ServiceProviders\TransactionProvider::class,
     ];
 
     public function __construct(array $config = [])
@@ -47,9 +49,9 @@ class Application extends Container
 
         $production = $this['config']->get('production', true);
         if ($production) {
-            $baseUri = 'https://pg.pacypay.com/payment';
+            $baseUri = 'https://pg.pacypay.com';
         } else {
-            $baseUri = 'https://sandbox-pg.pacypay.com/payment';
+            $baseUri = 'https://sandbox-pg.pacypay.com';
         }
 
         Http::setDefaultOptions($this['config']->get('guzzle', ['timeout' => 5.0, 'base_uri' => $baseUri]));

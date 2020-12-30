@@ -14,6 +14,7 @@ use GuzzleHttp\Middleware;
 use Nilsir\Pacypay\Exceptions\HttpException;
 use Nilsir\Pacypay\Support\Collection;
 use Nilsir\Pacypay\Support\Log;
+use Pimple\Container;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -26,6 +27,10 @@ abstract class AbstractAPI
      */
     protected $http;
 
+    protected $container;
+
+    protected $data;
+
     const GET = 'get';
     const POST = 'post';
     const JSON = 'json';
@@ -36,6 +41,11 @@ abstract class AbstractAPI
      * @var int
      */
     protected static $maxRetries = 2;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * Return the http instance.
@@ -159,5 +169,25 @@ abstract class AbstractAPI
 
             throw new HttpException($contents['message'], $contents['status']);
         }
+    }
+
+    protected function withBaseData(array $data)
+    {
+        $this->data = array_merge(
+            $data,
+            [
+                'versionNo' => $this->container['config']['version_no'],
+                'merchantNo' => $this->container['config']['merchant_no'],
+            ]
+        );
+
+        return $this;
+    }
+
+    protected function withSign()
+    {
+        $signature = $this->container['signature'];
+
+        return array_merge($this->data, ['sign' => $signature->getSign($this->data)]);
     }
 }
