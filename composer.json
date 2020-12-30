@@ -1,0 +1,17 @@
+{
+    "name": "nilsir\/pacypay",
+    "description": "A php sdk for pacypay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nilsir",
+            "email": "nilsir@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Nilsir\\Pacypay\\": "src"
+        }
+    }
+}
