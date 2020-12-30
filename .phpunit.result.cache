@@ -1,0 +1,1 @@
+C:37:"PHPUnit\Runner\DefaultTestResultCache":100:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:1:{s:40:"SignatureTest::can_get_a_valid_signature";d:0.004;}}}
